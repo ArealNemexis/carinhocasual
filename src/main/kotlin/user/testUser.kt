@@ -2,7 +2,9 @@ package user
 
 fun main(){
     var users = arrayListOf<User>()
-    var new = User("Lucas Ferreira de Araujo", "+5561992614682", "cobrinha@carinhocasual.com");
+    var new = User("Lucas Ferreira de Araujo", "+5561992614682", "cobrinha@carinhocasual.com", "09-04-2000");
+
+//    println(new.birthday)
 
     while(true){
         println("Type the User name: ")
@@ -11,8 +13,10 @@ fun main(){
         var phone:String = readLine()!!
         println("Type the User Email")
         var email:String = readLine()!!
+        println("Type the User born day")
+        var birthday:String = readLine()!!
 
-        users.add(User(name,phone, email))
+        users.add(User(name,phone, email, birthday))
 
         print("Want add a new User? Yes/No:")
         var op:String = readLine()!!
