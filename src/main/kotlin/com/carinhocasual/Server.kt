@@ -38,7 +38,7 @@ fun main() {
         val newGender = call.receive <Gender> ()
 
         //the field uid is being setting here, based on the label
-        newGender.uid = UUID.nameUUIDFromBytes(newGender.label.toLowerCase().toByteArray()).toString ()
+        newGender.id = UUID.nameUUIDFromBytes(newGender.label.toLowerCase().toByteArray()).toString ()
 
         //store the new gender obj in app.gender
         app.genders.add (newGender)
