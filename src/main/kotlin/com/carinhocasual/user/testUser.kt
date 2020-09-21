@@ -1,7 +1,9 @@
-package user
+package com.carinhocasual.user
+
+import java.util.*
 
 fun main(){
-    var users = arrayListOf<User>()
+    var users = mutableListOf<User>()
     var new = User("Lucas Ferreira de Araujo", "+5561992614682", "cobrinha@carinhocasual.com", "09-04-2000");
 
 //    println(new.birthday)
@@ -16,7 +18,9 @@ fun main(){
         println("Type the User born day")
         var birthday:String = readLine()!!
 
-        users.add(User(name,phone, email, birthday))
+        var id = UUID.randomUUID().toString()
+
+        users.add(User(name,phone, email, birthday, id=id))
 
         print("Want add a new User? Yes/No:")
         var op:String = readLine()!!
@@ -31,8 +35,6 @@ fun main(){
         println(user.name)
         println(user.phone)
         println(user.email)
-        println(user.last_latitude)
-        println(user.last_longitude)
         println("----------------------------")
     }
 //    println(new.id)
