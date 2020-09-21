@@ -68,6 +68,22 @@ fun main() {
           call.response.status(HttpStatusCode.OK)
         }
       }
+
+      put("/user/edit/{id}"){
+        val id = call.parameters["id"]
+        val putParams = call.receive<User>()
+        println("searching User with $id")
+        var returnUser = Users.filter { it.id == id }
+        if(returnUser.isEmpty()){
+          println("User not found")
+          call.response.status(HttpStatusCode.NotFound)
+        }else{
+          returnUser[0].editAll(putParams)
+          call.response.status(HttpStatusCode.OK)
+        }
+      }
+
+
     }
   }.start(wait = true)
 }
