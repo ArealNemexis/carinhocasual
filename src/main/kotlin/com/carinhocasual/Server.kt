@@ -68,12 +68,11 @@ fun main() {
 
                 var sexualOrientationToUpdate: SexualOrientation? = app.sexualOrientation.firstOrNull {it.id == call.parameters ["id"]}
 
-                //process only if objecta was found.
                 if (sexualOrientationToUpdate == null) {
                   call.response.status (HttpStatusCode.NotFound)
                 } else {
-                  //removes the found object
-                  app.sexualOrientation.remove (sexualOrientationToUpdate)
+
+                    app.sexualOrientation.remove (sexualOrientationToUpdate)
 
                   var newSexualOrientation: SexualOrientation = call.receive<SexualOrientation>()
                   newSexualOrientation.id = UUID.nameUUIDFromBytes (newSexualOrientation.label.toLowerCase().toByteArray()).toString()
