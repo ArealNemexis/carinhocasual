@@ -8,13 +8,12 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import com.carinhocasual.sexual_orientation.SexualOrientation
-//import com.carinhocasual.interests.Interest
+import com.carinhocasual.interests.Interest
 import com.carinhocasual.app.App
 import io.ktor.request.*
 import io.ktor.response.*
 import java.util.*
 
-//val call: Any
 val app = App ()
 
 fun main() {
@@ -95,10 +94,70 @@ fun main() {
           }
         }
 
-          //      post ("/interests") {
-          //      get ("/interests") {
-          //      put ("/interests") {
-          //      delete ("/interests") {
+          post("/interests") {
+
+              val newInterest = call.receive <Interest>()
+
+              newInterest.id = UUID.nameUUIDFromBytes(newInterest.label.toLowerCase().toByteArray()).toString ()
+
+              val alreadyExists: Boolean = app.interest.any {it.id == newInterest.id}
+
+              if (alreadyExists) {
+                  call.response.status (HttpStatusCode.Conflict)
+              } else {
+                  app.interest.add(newInterest)
+                  call.response.status(HttpStatusCode.Created)
+                  call.respond(newInterest)
+              }
+
+          }
+
+          get("/interests") {
+              call.response.status (HttpStatusCode.OK)
+              call.respond (app.interest)
+          }
+
+          get ("/interests/{id}") {
+              val responseInterest: Interest? = app.interest.firstOrNull {it.id == call.parameters ["id"]}
+
+              if (responseInterest == null) {
+                  call.response.status (HttpStatusCode.NotFound)
+              } else {
+                  call.response.status (HttpStatusCode.OK)
+                  call.respond (responseInterest)
+              }
+          }
+
+          put ("/interests/{id}") {
+
+              var interestToUpdate: Interest? = app.interest.firstOrNull {it.id == call.parameters ["id"]}
+
+              if (interestToUpdate == null) {
+                  call.response.status (HttpStatusCode.NotFound)
+              } else {
+                  app.interest.remove(interestToUpdate)
+
+                  var newInterest: Interest = call.receive<Interest>()
+                  newInterest.id = UUID.nameUUIDFromBytes(newInterest.label.toLowerCase().toByteArray()).toString()
+
+                  app.interest.add(newInterest)
+                  call.response.status(HttpStatusCode.OK)
+              }
+          }
+
+          delete ("/interests/{id}") {
+
+              val interestToDelete: Interest? = app.interest.firstOrNull {it.id == call.parameters ["id"]}
+
+              if (interestToDelete == null) {
+                  call.response.status (HttpStatusCode.NotFound)
+              } else {
+
+                  app.interest.remove (interestToDelete)
+                  call.response.status (HttpStatusCode.OK)
+              }
+          }
+
 
       }
     }.start(wait = true)
