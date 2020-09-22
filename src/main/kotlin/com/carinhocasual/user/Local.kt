@@ -1,4 +1,4 @@
 package com.carinhocasual.user
 
-class Local(var last_longitude:Float = 0.0F,
-            var last_latitude:Float = 0.0F)
+class Local(var lastLongitude:Float = 0.0F,
+            var lastLatitude:Float = 0.0F)
