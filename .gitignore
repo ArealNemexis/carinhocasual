@@ -30,6 +30,9 @@ hs_err_pid*
 .settings
 .springBeans
 
+# VS Code
+.vscode
+
 # IntelliJ IDEA
 .idea
 *.iws
