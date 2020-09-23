@@ -28,4 +28,4 @@ dependencies {
 group 'com.carinhocasual'
 version '1.0-SNAPSHOT'
 
-mainClassName = "com.carinhocasual.Server"
+mainClassName = "com.carinhocasual.ServerKt"
