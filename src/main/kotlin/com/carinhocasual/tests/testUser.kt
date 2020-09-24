@@ -31,14 +31,14 @@ fun main(){
             break
         }
     }
-    users.forEach { user ->
-        println("----------------------------")
-        println(user.id)
-        println(user.name)
-        println(user.phone)
-        println(user.email)
-        println("----------------------------")
-    }
+    // users.forEach { user ->
+    //     println("----------------------------")
+    //     println(user.id)
+    //     println(user.name)
+    //     println(user.phone)
+    //     println(user.email)
+    //     println("----------------------------")
+    // }
 //    println(new.id)
 //    println(new.name)
 //    println(new.phone)
