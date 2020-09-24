@@ -15,6 +15,7 @@ import com.carinhocasual.app.App
 import com.carinhocasual.gender.Gender
 import com.carinhocasual.sexual_orientation.SexualOrientation
 import com.carinhocasual.interests.Interest
+import com.carinhocasual.user.Local
 import com.carinhocasual.utils.uuidGenerate
 
 
@@ -35,61 +36,61 @@ fun main() {
                 call.respondText("<h1>Hello Kotlin!</h1>", ContentType.Text.Html)
             }
 
-//            get("/users") {
-//                println("Returning all Users")
-//                call.respond(Users)
-//            }
-//
-//            get("/users/{id}") {
-//                val id = call.parameters["id"]
-//                println("searching User with $id")
-//                var returnUser = Users.filter { it.id == id }
-//                if (returnUser.isEmpty()) {
-//                    println("User not found")
-//                    call.response.status(HttpStatusCode.NotFound)
-//                } else {
-//                    call.response.status(HttpStatusCode.OK)
-//                    call.respond(returnUser)
-//                }
-//            }
-//
-//            post("/users/register") {
-//                val postParameters = call.receive<User>()
-//                var newId = uuidGenerate();
-//                Users.add(User(postParameters.name, postParameters.phone, postParameters.email, postParameters.birthday, id = newId))
-//
-//
-//                call.respond(newId)
-//            }
-//
-//            post("/users/location/{id}") {
-//                val id = call.parameters["id"]
-//                val localParams = call.receive<Local>()
-//                println("searching User with $id")
-//                var returnUser = Users.filter { it.id == id }
-//                if (returnUser.isEmpty()) {
-//                    println("User not found")
-//                    call.response.status(HttpStatusCode.NotFound)
-//                } else {
-//                    println("User found, changing location")
-//                    returnUser[0].lastLocal = Local(localParams.last_longitude, localParams.last_latitude)
-//                    call.response.status(HttpStatusCode.OK)
-//                }
-//            }
-//
-//            put("/user/edit/{id}") {
-//                val id = call.parameters["id"]
-//                val putParams = call.receive<User>()
-//                println("searching User with $id")
-//                var returnUser = Users.filter { it.id == id }
-//                if (returnUser.isEmpty()) {
-//                    println("User not found")
-//                    call.response.status(HttpStatusCode.NotFound)
-//                } else {
-//                    returnUser[0].editAll(putParams)
-//                    call.response.status(HttpStatusCode.OK)
-//                }
-//            }
+            get("/users") {
+                println("Returning all Users")
+                call.respond(app.Users)
+            }
+
+            post("/users/register") {
+                val postParameters = call.receive<User>()
+                var newUser = User(postParameters.name, postParameters.phone, postParameters.email, postParameters.birthday)
+                app.Users.add(newUser)
+                call.respond(newUser.id!!)
+            }
+
+            get("/users/{id}") {
+                val id = call.parameters["id"]
+                println("searching User with id:$id")
+                var returnUser = app.Users.filter { it.id == id }
+                if (returnUser.isEmpty()) {
+                    println("User not found")
+                    call.response.status(HttpStatusCode.NotFound)
+                } else {
+                    call.response.status(HttpStatusCode.OK)
+                    call.respond(returnUser)
+                }
+            }
+
+
+
+            post("/users/location/{id}") {
+                val id = call.parameters["id"]
+                val localParams = call.receive<Local>()
+                println("searching User with $id")
+                var returnUser = app.Users.filter { it.id == id }
+                if (returnUser.isEmpty()) {
+                    println("User not found")
+                    call.response.status(HttpStatusCode.NotFound)
+                } else {
+                    println("User found, changing location")
+                    returnUser[0].setLocal(localParams.lastLongitude, localParams.lastLatitude)
+                    call.response.status(HttpStatusCode.OK)
+                }
+            }
+
+            put("/user/edit/{id}") {
+                val id = call.parameters["id"]
+                val putParams = call.receive<User>()
+                println("searching User with $id")
+                var returnUser = app.Users.filter { it.id == id }
+                if (returnUser.isEmpty()) {
+                    println("User not found")
+                    call.response.status(HttpStatusCode.NotFound)
+                } else {
+                    returnUser[0].editAll(putParams)
+                    call.response.status(HttpStatusCode.OK)
+                }
+            }
 
 
             get("/genders") {

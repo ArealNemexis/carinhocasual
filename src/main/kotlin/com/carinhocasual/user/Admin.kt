@@ -5,6 +5,6 @@ class Admin(
     phone:String,
     email:String,
     birthday: String,
-    id:String = ""): People(name, phone,email,birthday, id){
-    //TODO ALL
+    id:String = ""): People(name, phone,email,birthday){
+    var password:String? = null
 }

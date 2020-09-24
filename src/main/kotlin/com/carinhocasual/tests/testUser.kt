@@ -1,5 +1,7 @@
-package com.carinhocasual.user
+package com.carinhocasual.tests
 
+import com.carinhocasual.user.User
+import com.carinhocasual.utils.uuidGenerate
 import java.util.*
 
 fun main(){
@@ -20,7 +22,7 @@ fun main(){
 
         var id = UUID.randomUUID().toString()
 
-        users.add(User(name,phone, email, birthday, id=id))
+        users.add(User(name,phone, email, birthday))
 
         print("Want add a new User? Yes/No:")
         var op:String = readLine()!!
