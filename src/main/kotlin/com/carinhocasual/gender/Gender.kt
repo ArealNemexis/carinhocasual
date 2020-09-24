@@ -1,5 +1,4 @@
 package com.carinhocasual.gender
-import java.util.UUID
 
 class Gender (genderLabel: String) {
     var id: String? = null

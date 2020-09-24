@@ -1,5 +1,4 @@
 package com.carinhocasual.sexual_orientation
-import java.util.UUID
 
 class SexualOrientation (sexualOrientationLabel: String) {
         var id: String? = null

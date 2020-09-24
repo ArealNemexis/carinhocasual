@@ -4,12 +4,12 @@ import com.carinhocasual.gender.Gender
 import com.carinhocasual.sexual_orientation.SexualOrientation
 import com.carinhocasual.utils.uuidGenerate
 
-class User(
+class User (
     name: String?,
-    phone:String?,
-    email:String?,
+    phone: String?,
+    email: String?,
     birthday: String?,
-): People(name, phone,email,birthday)
+): People (name, phone, email, birthday)
 {
     var lastLocal: Local = Local()
     var sexualOrientations = mutableListOf<SexualOrientation>()
