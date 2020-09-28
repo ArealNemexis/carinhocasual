@@ -10,6 +10,7 @@ import com.carinhocasual.database.InMemoryDB
 import com.carinhocasual.routes.genderRoutes
 import com.carinhocasual.routes.interestRoutes
 import com.carinhocasual.routes.sexualOrientationRoutes
+import com.carinhocasual.routes.userRoutes
 
 val db = InMemoryDB ()
 
@@ -24,6 +25,7 @@ fun main () {
         genderRoutes ()
         sexualOrientationRoutes()
         interestRoutes ()
+        userRoutes ()
     }
 
     server.start (wait = true)

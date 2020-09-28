@@ -7,11 +7,9 @@ import com.carinhocasual.db
 
 class GenderService () {
     fun validate (obj: Gender): Int {
-        var genders = db.genders
-
         obj.setId (UUID.nameUUIDFromBytes(((obj.getLabel ()).toLowerCase ()).toByteArray ()).toString())
 
-        val gender = genders.firstOrNull { it.getId () == obj.getId () }
+        val gender = db.genders.firstOrNull { it.getId () == obj.getId () }
 
         if (gender != null) {
             return 409
