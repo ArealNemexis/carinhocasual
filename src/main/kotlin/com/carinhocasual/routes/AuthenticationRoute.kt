@@ -9,16 +9,19 @@ import io.ktor.auth.*
 import io.ktor.gson.*
 
 import com.carinhocasual.resource.basicAuthentication
+import com.carinhocasual.resource.jwtAuthorization
 
 fun Application.authRoute () {
+    
     routing { 
         basicAuthentication ()
+        jwtAuthorization()
 
         authenticate ("getAuthToken") {
             get ("/login") {
                 val userPrincipal = call.authentication.principal <UserIdPrincipal> ()
-                
-                //apenas um teste sem usar o Content Negotiation
+
+
                 call.response.status (HttpStatusCode.OK)
                 call.respondText ("Authenticated. UserID: ${userPrincipal?.name}")
             }

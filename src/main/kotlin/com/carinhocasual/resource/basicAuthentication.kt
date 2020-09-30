@@ -1,9 +1,6 @@
 package com.carinhocasual.resource
 
 import io.ktor.application.*
-import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.auth.*
 import com.carinhocasual.db
