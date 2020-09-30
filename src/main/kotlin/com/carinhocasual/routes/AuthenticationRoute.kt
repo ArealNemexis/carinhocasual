@@ -15,7 +15,6 @@ fun Application.authRoute () {
     
     routing { 
         basicAuthentication ()
-        jwtAuthorization()
 
         authenticate ("getAuthToken") {
             get ("/login") {
