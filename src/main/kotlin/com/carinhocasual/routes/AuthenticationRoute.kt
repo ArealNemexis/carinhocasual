@@ -10,6 +10,7 @@ import io.ktor.gson.*
 
 import com.carinhocasual.resource.basicAuthentication
 import com.carinhocasual.resource.jwtAuthorization
+import com.carinhocasual.resource.Response
 
 fun Application.authRoute () {
     
@@ -19,10 +20,7 @@ fun Application.authRoute () {
         authenticate ("getAuthToken") {
             get ("/login") {
                 val userPrincipal = call.authentication.principal <UserIdPrincipal> ()
-
-
-                call.response.status (HttpStatusCode.OK)
-                call.respondText ("Authenticated. UserID: ${userPrincipal?.name}")
+                call.respond (HttpStatusCode.OK, Response ("${userPrincipal?.name}"))
             }
         }
     }

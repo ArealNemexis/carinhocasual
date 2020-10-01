@@ -10,6 +10,7 @@ import com.carinhocasual.service.PersonService
 import com.carinhocasual.entity.person.Person
 import com.carinhocasual.entity.person.User
 import com.carinhocasual.entity.person.Admin
+import com.carinhocasual.resource.Response
 
 val personService = PersonService ()
 
@@ -17,17 +18,16 @@ fun Application.userRoutes () {
     routing {
         get ("/users") {
             val users = personService.getAll ()
-            call.respond (users)
+            call.respond (Response (users))
         }
         
         get ("/user/{id}") {
             val found = personService.getOne (call.parameters ["id"].toString ())
 
             if (found != null) {
-                call.response.status (HttpStatusCode.Found)
-                call.respond (found)
+                call.respond (HttpStatusCode.Found, Response (found))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -36,13 +36,12 @@ fun Application.userRoutes () {
             val validation: Int = personService.validate (newUser)
 
             if (validation == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This email already exists"))
             } else if (validation == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad request"))
             } else {
                 personService.persist(newUser)
-                call.response.status (HttpStatusCode.Created)
-                call.respond (newUser)
+                call.respond (HttpStatusCode.Created, Response (newUser))
             }
         }
 
@@ -51,9 +50,9 @@ fun Application.userRoutes () {
             val removed = personService.remove (parameter)
 
             if (removed) {
-                call.response.status (HttpStatusCode.OK)
+                call.respond (HttpStatusCode.OK, Response ("Object deleted"))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -64,12 +63,11 @@ fun Application.userRoutes () {
             val replaced = personService.replace (param, gender)
 
             if (replaced == 200) {
-                call.response.status (HttpStatusCode.OK)
-                call.respond (gender)
+                call.respond (HttpStatusCode.OK, Response (gender))
             } else if (replaced == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This email already exists"))
             } else if (replaced == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad Request"))
             }
         }
     }

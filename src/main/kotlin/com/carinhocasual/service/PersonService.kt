@@ -21,14 +21,12 @@ class PersonService () {
             return 401
         } else {
             val userIdConlict = db.users.firstOrNull { it.getId () == obj.getId () }
-
+            val userEmailConflict = db.users.firstOrNull {it.getEmail () == obj.getEmail ()}
 
             //setar um while nessa condição
-            if (userIdConlict != null) {
-                obj.setId ()  
-            } 
+            if (userIdConlict != null) obj.setId ()
 
-            return 201
+            if (userEmailConflict != null) return 409 else return 201
         }
     }
 

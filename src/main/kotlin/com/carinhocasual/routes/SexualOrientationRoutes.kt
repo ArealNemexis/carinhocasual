@@ -8,6 +8,7 @@ import io.ktor.routing.*
 
 import com.carinhocasual.service.SexualOrientationService
 import com.carinhocasual.entity.sexualOrientation.SexualOrientation
+import com.carinhocasual.resource.Response
 
 val osService = SexualOrientationService ()
 
@@ -15,18 +16,16 @@ fun Application.sexualOrientationRoutes () {
     routing {
         get ("/sexualorientations") {
             val sexualOrientations = osService.getAll ()
-            call.response.status (HttpStatusCode.OK)
-            call.respond (sexualOrientations)
+            call.respond (Response (sexualOrientations))
         }
         
         get ("/sexualorientation/{id}") {
             val found = osService.getOne (call.parameters ["id"].toString ())
 
             if (found != null) {
-                call.response.status (HttpStatusCode.Found)
-                call.respond (found)
+                call.respond (HttpStatusCode.Found, Response (found))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -35,13 +34,12 @@ fun Application.sexualOrientationRoutes () {
             val validation: Int = osService.validate (newSexualOrientation)
 
             if (validation == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This label already exists"))
             } else if (validation == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad request"))
             } else {
                 osService.persist(newSexualOrientation)
-                call.response.status (HttpStatusCode.Created)
-                call.respond (newSexualOrientation)
+                call.respond (HttpStatusCode.Created, Response (newSexualOrientation))
             }
         }
 
@@ -50,9 +48,9 @@ fun Application.sexualOrientationRoutes () {
             val removed = osService.remove (parameter)
 
             if (removed) {
-                call.response.status (HttpStatusCode.OK)
+                call.respond (HttpStatusCode.OK, Response ("Object deleted"))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -63,12 +61,11 @@ fun Application.sexualOrientationRoutes () {
             val replaced = osService.replace (param, newSexualOrientation)
 
             if (replaced == 200) {
-                call.response.status (HttpStatusCode.OK)
-                call.respond (newSexualOrientation)
+                call.respond (HttpStatusCode.OK, Response (newSexualOrientation))
             } else if (replaced == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This label already exists"))
             } else if (replaced == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad Request"))
             }
         }
     }

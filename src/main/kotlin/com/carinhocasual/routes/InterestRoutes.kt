@@ -8,6 +8,7 @@ import io.ktor.routing.*
 
 import com.carinhocasual.service.InterestService
 import com.carinhocasual.entity.interest.Interest
+import com.carinhocasual.resource.Response
 
 val interestService = InterestService ()
 
@@ -15,18 +16,16 @@ fun Application.interestRoutes () {
     routing {
         get ("/interests") {
             val interests = interestService.getAll ()
-            call.response.status (HttpStatusCode.OK)
-            call.respond (interests)
+            call.respond (Response (interests))
         }
         
         get ("/interest/{id}") {
             val found = interestService.getOne (call.parameters ["id"].toString ())
 
             if (found != null) {
-                call.response.status (HttpStatusCode.Found)
-                call.respond (found)
+                call.respond (HttpStatusCode.Found, Response (found))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -35,13 +34,12 @@ fun Application.interestRoutes () {
             val validation: Int = interestService.validate (newInterest)
 
             if (validation == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This label already exists"))
             } else if (validation == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad request"))
             } else {
                 interestService.persist(newInterest)
-                call.response.status (HttpStatusCode.Created)
-                call.respond (newInterest)
+                call.respond (HttpStatusCode.Created, Response (newInterest))
             }
         }
 
@@ -50,9 +48,9 @@ fun Application.interestRoutes () {
             val removed = interestService.remove (parameter)
 
             if (removed) {
-                call.response.status (HttpStatusCode.OK)
+                call.respond (HttpStatusCode.OK, Response ("Object deleted"))
             } else {
-                call.response.status (HttpStatusCode.NotFound)
+                call.respond (HttpStatusCode.NotFound, Response ("Object not found"))
             }
         }
 
@@ -63,12 +61,11 @@ fun Application.interestRoutes () {
             val replaced = interestService.replace (param, newInterest)
 
             if (replaced == 200) {
-                call.response.status (HttpStatusCode.OK)
-                call.respond (newInterest)
+                call.respond (HttpStatusCode.OK, Response (newInterest))
             } else if (replaced == 409) {
-                call.response.status (HttpStatusCode.Conflict)
+                call.respond (HttpStatusCode.Conflict, Response ("This label already exists"))
             } else if (replaced == 401) {
-                call.response.status (HttpStatusCode.BadRequest)
+                call.respond (HttpStatusCode.BadRequest, Response ("Bad Request"))
             }
         }
     }
