@@ -1,27 +1,36 @@
 package com.carinhocasual
 
 import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.gson.*
-import io.ktor.http.*
-import io.ktor.response.*
-import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.features.*
+import io.ktor.gson.*
+import io.ktor.auth.*
+import io.ktor.routing.*
 
-fun main() {
-  embeddedServer(Netty, 8080) {
-    routing {
-      install(ContentNegotiation) {
-        gson {
-          setPrettyPrinting()
+import com.carinhocasual.database.InMemoryDB
+import com.carinhocasual.routes.genderRoutes
+import com.carinhocasual.routes.interestRoutes
+import com.carinhocasual.routes.sexualOrientationRoutes
+import com.carinhocasual.routes.userRoutes
+import com.carinhocasual.routes.authRoute
+
+val db = InMemoryDB ()
+
+fun main () {
+    val server = embeddedServer (Netty, 8080) {
+        install (ContentNegotiation) {
+            gson {
+                setPrettyPrinting ()
+            }
         }
-      }
-
-      get("/") {
-        call.respondText("<h1>Hello Kotlin!</h1>", ContentType.Text.Html)
-      }
-
+        
+        authRoute ()
+        genderRoutes ()
+        sexualOrientationRoutes()
+        interestRoutes ()
+        userRoutes ()
     }
-  }.start(wait = true)
+
+    server.start (wait = true)
 }
