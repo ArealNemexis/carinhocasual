@@ -4,6 +4,8 @@ import com.carinhocasual.entity.gender.Gender
 import com.carinhocasual.entity.interest.Interest
 import com.carinhocasual.entity.sexualOrientation.SexualOrientation
 import com.carinhocasual.entity.person.Location
+import com.carinhocasual.entity.like.Like
+import com.carinhocasual.entity.like.SuperLike
 
 class User (
     // private var interests: MutableList <Interest> = mutableListOf <Interest> (),
