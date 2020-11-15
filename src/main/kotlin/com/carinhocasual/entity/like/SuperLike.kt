@@ -4,5 +4,10 @@ import com.carinhocasual.entity.person.Person
 
 class SuperLike(
     likedUser: Person,
-    var priority: Boolean = true
-): Like(likedUser)
+    description: String = "Like é a maneira do(a) crush saber o seu interesse."
+): Like(likedUser, description){
+
+    override fun getDescription(): String {
+        return "Super" + super.getDescription() + " Obs: SuperLike possui um custo para o uso, mas garante uma notificação para seu crush."
+    }
+}

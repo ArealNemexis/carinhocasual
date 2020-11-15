@@ -27,6 +27,7 @@ fun main () {
         interestRoutes ()
         userRoutes ()
         LikeRoutes()
+        MatchRoutes()
     }
 
     server.start (wait = true)
