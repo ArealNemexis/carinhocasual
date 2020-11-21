@@ -20,7 +20,7 @@ fun Application.userRoutes () {
             val users = personService.getAll ()
             call.respond (Response (users))
         }
-        
+
         get ("/user/{id}") {
             val found = personService.getOne (call.parameters ["id"].toString ())
 

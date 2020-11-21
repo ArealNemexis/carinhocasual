@@ -1,15 +1,16 @@
 package com.carinhocasual.entity.interest
 
+import com.carinhocasual.interfaces.IInterest
 
-class Interest (private var id: String, private var label: String) {
-    fun getId () = id
-    fun getLabel () = label
+class Interest (private var id: String, private var label: String): IInterest {
+    override fun getId () = id
+    override fun getLabel () = label
 
-    fun setId (id: String) {
+    override fun setId (id: String) {
         this.id = id
     }
 
-    fun setLabel (label: String) {
+    override fun setLabel (label: String) {
         this.label = label
     }
 }

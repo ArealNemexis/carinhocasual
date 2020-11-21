@@ -1,6 +1,7 @@
 package com.carinhocasual.entity.person
 
 import java.util.UUID
+import com.carinhocasual.interfaces.IPerson
 
 open class Person (
     private var id: String = UUID.randomUUID().toString (),
@@ -9,43 +10,37 @@ open class Person (
     private var pass: String? = null,
     private var phone: String? = null,
     private var birthday: String? = null,
-    private var token: String? = null,
-    private var status: String? = "active"
+    private var status: String? = "active",
     //var picture: Picture? = defaultPicture (não implementado ainda)
-) {
-    fun getId () = id
-    fun getName () = name
-    fun getEmail () = email
-    fun getPass () = pass
-    fun getPhone () = phone
-    fun getBrithday () = birthday
-    fun getToken () = token
+): IPerson {
+    override fun getId () = id
+    override fun getName () = name
+    override fun getEmail () = email
+    override fun getPass () = pass
+    override fun getPhone () = phone
+    override fun getBrithday () = birthday
 
-    fun setId () {
+    override fun setId () {
         this.id = UUID.randomUUID().toString ()
     }
 
-    fun setName (name: String) {
+    override fun setName (name: String) {
         this.name = name
     }
 
-    fun setEmail (email: String) {
+    override fun setEmail (email: String) {
         this.email = email
     }
 
-    fun setPassword (password: String) {
+    override fun setPassword (password: String) {
         this.pass = password
     }
 
-    fun setPhone (phone: String) {
+    override fun setPhone (phone: String) {
         this.phone = phone
     }
 
-    fun setBirthday (birthday: String) {
+    override fun setBirthday (birthday: String) {
         this.birthday = birthday
-    }
-
-    fun setToken (token: String) {
-        this.token = token
     }
 }

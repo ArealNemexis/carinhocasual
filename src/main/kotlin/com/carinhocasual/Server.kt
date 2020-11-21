@@ -9,11 +9,7 @@ import io.ktor.auth.*
 import io.ktor.routing.*
 
 import com.carinhocasual.database.InMemoryDB
-import com.carinhocasual.routes.genderRoutes
-import com.carinhocasual.routes.interestRoutes
-import com.carinhocasual.routes.sexualOrientationRoutes
-import com.carinhocasual.routes.userRoutes
-import com.carinhocasual.routes.authRoute
+import com.carinhocasual.routes.*
 
 val db = InMemoryDB ()
 
@@ -30,6 +26,8 @@ fun main () {
         sexualOrientationRoutes()
         interestRoutes ()
         userRoutes ()
+        LikeRoutes()
+        MatchRoutes()
     }
 
     server.start (wait = true)
