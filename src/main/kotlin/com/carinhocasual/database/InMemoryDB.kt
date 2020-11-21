@@ -2,9 +2,9 @@ package com.carinhocasual.database
 
 import com.carinhocasual.entity.gender.Gender
 import com.carinhocasual.entity.interest.Interest
-import com.carinhocasual.entity.like.Match
 import com.carinhocasual.entity.sexualOrientation.SexualOrientation
 import com.carinhocasual.entity.person.Person
+import com.carinhocasual.entity.match.Match
 
 class InMemoryDB () {
     val genders: MutableList <Gender> = mutableListOf <Gender> ()
