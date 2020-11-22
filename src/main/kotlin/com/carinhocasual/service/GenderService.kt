@@ -5,25 +5,24 @@ import com.carinhocasual.db
 import com.carinhocasual.interfaces.services.IGenderService
 import com.carinhocasual.entity.gender.Gender
 import com.carinhocasual.resource.Response
+import com.carinhocasual.resource.exceptions.*
 
 class GenderService (): IGenderService {
-    override fun validate (obj: Gender): Int {
+    override fun validate (obj: Gender) {
         obj.setId (UUID.nameUUIDFromBytes(((obj.getLabel ()).toLowerCase ()).toByteArray ()).toString())
         val gender = db.genders.firstOrNull { it.getId () == obj.getId () }
 
         if (gender != null) {
-            return 409
+            throw ConflictException()
         } else if (obj.getLabel () == "") {
-            return 401
-        } else {
-            return 201
+            throw BadRequestException ()
         }
     }
 
     override fun getOne (id: String): Response {
         val obj = db.genders.firstOrNull { it.getId () == id }
         if (obj == null) {
-            return Response ("Not Found", 404)
+            throw NotFoundException ()
         } else {
             return Response (obj, 200)
         }
@@ -34,20 +33,43 @@ class GenderService (): IGenderService {
     }
 
     override fun persist (obj: Gender): Response {
-        var validationReturn = validate (obj)
 
-        if (validationReturn == 400) {
+        try {
+            validate (obj)
+        } catch (e: BadRequestException) {
             return Response (obj, 400)
-        } else if (validationReturn == 409) {
+        } catch (e: ConflictException) {
             return Response (obj, 409)
-        } else {
-            db.genders.add (obj)
-            return Response (obj, 201)
         }
+
+        db.genders.add (obj)
+        return Response (obj, 201)
     }
 
     override fun remove (id: String): Response {
-        return Response ("Not implemented", 200)
+        val obj = db.genders.firstOrNull { it.getId () == id }
+
+        if (obj == null) {
+            throw NotFoundException ()
+        } else {
+            db.genders.remove (obj)
+            return Response (obj, 200)
+        }
+    }
+
+    override fun replace (id: String, obj: Gender): Response {
+        
+        try {
+            validate (obj)
+        } catch (e: ConflictException) {
+            return Response (obj, 409)
+        } catch (e: BadRequestException) {
+            return Response (obj, 400)
+        }
+
+        remove (id)
+        persist(obj)
+        return Response (obj, 200)
     }
 }
 

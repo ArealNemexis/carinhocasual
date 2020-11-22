@@ -23,8 +23,8 @@ fun main () {
         
         // authRoute ()
         genderRoutes ()
-        // sexualOrientationRoutes()
-        // interestRoutes ()
+        sexualOrientationRoutes()
+        interestRoutes ()
         // userRoutes ()
     }
 
