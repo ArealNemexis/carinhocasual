@@ -5,8 +5,8 @@ import java.util.UUID
 import com.carinhocasual.entity.interest.Interest
 import com.carinhocasual.db
 
-class InterestService: Service () {
-    override fun validate (obj: Interest): Int {
+class InterestService () {
+    fun validate (obj: Interest): Int {
         var interests = db.interests
 
         obj.setId (UUID.nameUUIDFromBytes(((obj.getLabel ()).toLowerCase ()).toByteArray ()).toString())
@@ -22,29 +22,20 @@ class InterestService: Service () {
         }
     }
 
-    fun exist (id: String): Boolean {
-
-    }
-
-    override fun getOne (id: String): Interest? {
+    fun getOne (id: String): Interest? {
         val interest = db.interests.firstOrNull { it.getId () == id }
         return interest
     }
 
-    override fun getAll (): MutableList <Interest> {
+    fun getAll (): MutableList <Interest> {
         return db.interests
     }
 
-    override fun persist (obj: Interest) {
+    fun persist (obj: Interest) {
         db.interests.add (obj)
     }
 
-    fun remove (id: String): Boolean {
+    fun remove (obj: String) {}
 
-    }
-
-    fun replace (id: String, interest: Interest): Int {
-
-    }
 }
 

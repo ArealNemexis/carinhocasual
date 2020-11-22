@@ -1,6 +1,6 @@
 package com.carinhocasual.entity.sexualOrientation
 
-import com.carinhocasual.interfaces.ISexualOrientation
+import com.carinhocasual.interfaces.entity.ISexualOrientation
 
 class SexualOrientation (private var id: String, private var label: String): ISexualOrientation {
     override fun getId () = id

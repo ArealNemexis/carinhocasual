@@ -1,6 +1,6 @@
 package com.carinhocasual.entity.match
 
-import com.carinhocasual.interfaces.IMatch
+import com.carinhocasual.interfaces.entity.IMatch
 
 class Match (
     private var user1: String,
@@ -10,8 +10,8 @@ class Match (
 ): IMatch {
     override fun getUser1 (): String = user1
     override fun getUser2 (): String = user2
-    override fun getUser1Like2: Boolean = user1Like2
-    override fun getUser2Like1: Boolean = user2Like1
+    override fun getUser1Like2 (): Boolean = user1Like2
+    override fun getUser2Like1 (): Boolean = user2Like1
 
     override fun setUser1Like2 (state: Boolean) {
         this.user1Like2 = state

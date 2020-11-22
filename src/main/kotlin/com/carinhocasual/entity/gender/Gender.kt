@@ -1,5 +1,5 @@
 package com.carinhocasual.entity.gender
-import com.carinhocasual.interfaces.IGender
+import com.carinhocasual.interfaces.entity.IGender
 
 class Gender (private var id: String, private var label: String): IGender {
     override fun getId () = id

@@ -1,7 +1,7 @@
 package com.carinhocasual.entity.person
 
 import java.util.UUID
-import com.carinhocasual.interfaces.IPerson
+import com.carinhocasual.interfaces.entity.IPerson
 
 open class Person (
     private var id: String = UUID.randomUUID().toString (),

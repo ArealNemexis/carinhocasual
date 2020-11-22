@@ -1,4 +1,4 @@
-package com.carinhocasual.interfaces
+package com.carinhocasual.interfaces.entity
 
 interface ISexualOrientation {
     fun getId (): String

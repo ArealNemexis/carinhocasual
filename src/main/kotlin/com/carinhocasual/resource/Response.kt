@@ -1,3 +1,5 @@
 package com.carinhocasual.resource
 
-data class Response (val content: Any?)
+class Response (var responseObject: Any, private var statusCode: Int) {
+    fun getStatusCode () = statusCode
+}

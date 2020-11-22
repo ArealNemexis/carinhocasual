@@ -1,6 +1,6 @@
-package com.carinhocasual.interfaces
+package com.carinhocasual.interfaces.entity
 
-interface IInterest {
+interface IGender {
     fun getId (): String
     fun getLabel (): String
     fun setId (id: String)

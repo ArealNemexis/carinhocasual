@@ -1,6 +1,6 @@
 package com.carinhocasual.entity.interest
 
-import com.carinhocasual.interfaces.IInterest
+import com.carinhocasual.interfaces.entity.IInterest
 
 class Interest (private var id: String, private var label: String): IInterest {
     override fun getId () = id
