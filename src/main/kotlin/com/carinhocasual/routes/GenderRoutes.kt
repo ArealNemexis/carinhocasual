@@ -35,7 +35,7 @@ fun Application.genderRoutes () {
             try {
                 val newGender: Gender = call.receive <Gender> ()
                 val response = genderService.persist (newGender)
-                call.respond(response.getStatusCode (), response)
+                call.respond (response.getStatusCode (), response)
             } catch (e: Exception) {
                 call.respond (HttpStatusCode.BadRequest)
             }

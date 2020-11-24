@@ -9,8 +9,7 @@ import com.carinhocasual.interfaces.entity.IUser
 class User (
     private var interests: MutableList <String> = mutableListOf <String> (),
     private var gender: String? = null,
-    private var sOrientation: String? = null,
-    private var location: String? = null
+    private var sOrientation: String? = null
 ): Person (), IUser {
     override fun getInterests () = interests
     override fun getGender () = gender

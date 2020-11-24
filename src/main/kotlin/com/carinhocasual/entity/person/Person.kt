@@ -10,7 +10,7 @@ open class Person (
     private var pass: String? = null,
     private var phone: String? = null,
     private var birthday: String? = null,
-    private var status: String? = "active",
+    private var status: String? = "active"
     //var picture: Picture? = defaultPicture (não implementado ainda)
 ): IPerson {
     override fun getId () = id
@@ -21,7 +21,7 @@ open class Person (
     override fun getBrithday () = birthday
 
     override fun setId () {
-        this.id = UUID.randomUUID().toString ()
+        this.id = UUID.randomUUID ().toString ()
     }
 
     override fun setName (name: String) {

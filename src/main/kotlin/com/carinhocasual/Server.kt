@@ -25,7 +25,7 @@ fun main () {
         genderRoutes ()
         sexualOrientationRoutes()
         interestRoutes ()
-        // userRoutes ()
+        userRoutes ()
     }
 
     server.start (wait = true)

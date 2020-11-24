@@ -7,6 +7,7 @@ interface IPerson {
     fun getPass (): String?
     fun getPhone (): String?
     fun getBrithday (): String?
+
     fun setId ()
     fun setName (name: String)
     fun setEmail (email: String)
