@@ -21,12 +21,12 @@ fun main () {
             }
         }
         
-        // authRoute ()
+        authRoute ()
         genderRoutes ()
         sexualOrientationRoutes()
         interestRoutes ()
         userRoutes ()
+        likeRoutes ()
     }
-
     server.start (wait = true)
 }
