@@ -20,6 +20,8 @@ fun Application.authRoute () {
         authenticate ("getAuthToken") {
             get ("/login") {
                 val userPrincipal = call.authentication.principal <UserIdPrincipal> ()
+                // call.response.header("Access-Control-Allow-Origin", "*")
+                // call.response.header("Access-Control-Allow-Headers", "*")
                 call.respond (Response (userPrincipal!!, 200))
                 // call.respond (HttpStatusCode.OK, Response ("${userPrincipal?.name}", 200))
             }

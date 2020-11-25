@@ -8,7 +8,7 @@ import com.carinhocasual.db
 fun Route.basicAuthentication () {
     application.install (Authentication) {
         basic (name = "getAuthToken") {
-            realm = "Get a JWT Token"
+            realm = "Login"
             validate { authForm -> 
                 val user = db.users.find { it.getEmail () == authForm.name && it.getPass () == authForm.password }
 
