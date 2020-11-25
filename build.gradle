@@ -30,3 +30,9 @@ group 'com.carinhocasual'
 version '1.0-SNAPSHOT'
 
 mainClassName = "com.carinhocasual.ServerKt"
+
+//setar a task stage ou então configurar variavel GRADLE_TASK=build
+
+task stage {
+    dependsOn installDist
+}
