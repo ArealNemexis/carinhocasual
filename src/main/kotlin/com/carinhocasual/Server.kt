@@ -26,9 +26,9 @@ import com.carinhocasual.routes.*
 val db = InMemoryDB ()
 
 fun main () {
-    val server_port: Int = System.getenv ("server_port")?.toInt ()?: 8080
+    val PORT: Int = System.getenv ("PORT")?.toInt ()?: 8080
 
-    val server = embeddedServer (Netty, server_port) {
+    val server = embeddedServer (Netty, PORT) {
         install (ContentNegotiation) {
             gson {
                 setPrettyPrinting ()
@@ -55,6 +55,6 @@ fun main () {
         userRoutes ()
         likeRoutes ()
     }
-    
+
     server.start (wait = true)
 }
