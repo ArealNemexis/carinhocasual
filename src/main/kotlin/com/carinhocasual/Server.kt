@@ -26,7 +26,7 @@ import com.carinhocasual.routes.*
 val db = InMemoryDB ()
 
 fun main () {
-    val PORT: Int = System.getenv ("PORT")?.toInt ()?: 8080
+    val PORT: Int = System.getenv ("PORT")?.toInt ()?: 8080 //essa val precisa ser exatamente esse nome
 
     val server = embeddedServer (Netty, PORT) {
         install (ContentNegotiation) {
@@ -46,7 +46,18 @@ fun main () {
             anyHost ()
             allowCredentials = true
             allowSameOrigin = true
+
+            intercept(ApplicationCallPipeline.Setup) {
+                if (call.request.httpMethod == HttpMethod.Options) {
+                    call.response.header("Access-Control-Allow-Origin", "*")
+                    call.response.header("Access-Control-Allow-Headers", "*")
+                    call.respond(HttpStatusCode.OK)
+                    return@intercept finish()
+                }
+            }
         }
+
+        
 
         authRoute ()
         genderRoutes ()
