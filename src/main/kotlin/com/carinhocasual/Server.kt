@@ -19,16 +19,17 @@ import io.ktor.request.httpMethod
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import com.carinhocasual.routes.*
+import com.carinhocasual.resource.authenticationModule
 
 import com.carinhocasual.database.InMemoryDB
-import com.carinhocasual.routes.*
 
 val db = InMemoryDB ()
 
 fun main () {
-    val server_port: Int = System.getenv ("server_port")?.toInt ()?: 8080
+    val PORT: Int = System.getenv ("PORT")?.toInt ()?: 8080 //essa val precisa ser exatamente esse nome
 
-    val server = embeddedServer (Netty, server_port) {
+    val server = embeddedServer (Netty, PORT) {
         install (ContentNegotiation) {
             gson {
                 setPrettyPrinting ()
@@ -46,8 +47,24 @@ fun main () {
             anyHost ()
             allowCredentials = true
             allowSameOrigin = true
+
+            intercept(ApplicationCallPipeline.Setup) {
+                if (call.request.httpMethod == HttpMethod.Options) {
+                    call.response.header("Access-Control-Allow-Origin", "*")
+                    call.response.header("Access-Control-Allow-Headers", "*")
+                    call.respond(HttpStatusCode.OK)
+                    return@intercept finish()
+                }
+            }
         }
 
+        routing {
+            get ("/") {
+                call.respondRedirect ("/login")
+            }
+        }
+        
+        authenticationModule ()
         authRoute ()
         genderRoutes ()
         sexualOrientationRoutes()
@@ -55,6 +72,6 @@ fun main () {
         userRoutes ()
         likeRoutes ()
     }
-    
+
     server.start (wait = true)
 }
