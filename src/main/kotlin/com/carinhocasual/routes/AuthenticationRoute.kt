@@ -9,7 +9,7 @@ import io.ktor.auth.*
 import io.ktor.gson.*
 
 import com.carinhocasual.resource.basicAuthentication
-import com.carinhocasual.resource.jwtAuthorization
+// import com.carinhocasual.resource.jwtAuthorization
 import com.carinhocasual.resource.Response
 
 fun Application.authRoute () {
