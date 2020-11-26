@@ -19,9 +19,10 @@ import io.ktor.request.httpMethod
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import com.carinhocasual.routes.*
+import com.carinhocasual.resource.authenticationModule
 
 import com.carinhocasual.database.InMemoryDB
-import com.carinhocasual.routes.*
 
 val db = InMemoryDB ()
 
@@ -57,8 +58,13 @@ fun main () {
             }
         }
 
+        routing {
+            get ("/") {
+                call.respondRedirect ("/login")
+            }
+        }
         
-
+        authenticationModule ()
         authRoute ()
         genderRoutes ()
         sexualOrientationRoutes()
