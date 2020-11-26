@@ -58,18 +58,14 @@ fun main () {
             }
         }
 
-<<<<<<< HEAD
-        
-
-=======
         routing {
             get ("/") {
                 call.respondRedirect ("/login")
             }
         }
+
         
         authenticationModule ()
->>>>>>> 98bfcd1fb0d22d43f02f2d0b113d27c3576bb215
         authRoute ()
         genderRoutes ()
         sexualOrientationRoutes()

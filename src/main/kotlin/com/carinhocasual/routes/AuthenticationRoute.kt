@@ -8,12 +8,7 @@ import io.ktor.routing.*
 import io.ktor.auth.*
 import io.ktor.gson.*
 
-<<<<<<< HEAD
-import com.carinhocasual.resource.basicAuthentication
-// import com.carinhocasual.resource.jwtAuthorization
-=======
 import com.carinhocasual.resource.JwtHandler
->>>>>>> 98bfcd1fb0d22d43f02f2d0b113d27c3576bb215
 import com.carinhocasual.resource.Response
 
 data class jwtResponse (val token_type: String, val access_token: String, val expires_in: Int, val expires_on: Long)
